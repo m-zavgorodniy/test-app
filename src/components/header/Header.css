@@ -1,0 +1,22 @@
+.Header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.Header-logo {
+  display: flex;
+  align-items: center;
+  width: 140px;
+  height: 51px;
+  padding-left: 20px;
+}
+
+.Header-logo-img {
+  width: 68px;
+  height: 20px;
+}
+
+.Header-title {
+  color: #414042;
+}

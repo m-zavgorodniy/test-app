@@ -1,0 +1,49 @@
+.User--expanded {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.User__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  padding: .75em 20px;
+}
+
+.User__bar--hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.User__bar--hasApps {
+  cursor: pointer;
+}
+
+.User__account {
+	margin-top: 4px;
+	font-size: .875em;
+	color: rgba(0, 0, 0, 0.54);
+}
+
+.User__apps {
+	display: flex;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.54);
+}
+
+.User__hr {
+	margin: -1px 20px;
+	height: 1px;
+	background-color: rgb(224, 224, 224);
+}
+
+.UserAppsList {
+	margin: 0 20px;
+	padding: .75em 0;
+	border-top: 1px solid white;
+}
+
+.UserAppsList__title {
+	margin-bottom: .5rem;
+	font-size: .875em;
+	color: rgba(0, 0, 0, 0.54);
+	font-weight: bold;
+}
