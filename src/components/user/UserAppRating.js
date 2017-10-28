@@ -44,8 +44,9 @@ class UserAppRating extends Component {
       rating
     });
 
-    // and update the rating in the database
-    console.log(this.props.accountId, this.props.appId)
+    // update the rating in the database right now
+    const itemPath = `/accounts/${this.props.accountId}/apps/${this.props.appId}/ratings`;
+    console.log(this.props.userId, itemPath)
   }
 
   _changeRatingOnHover(rating) {

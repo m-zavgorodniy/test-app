@@ -95,13 +95,11 @@ class UserListGrid extends Component {
     const accounts = result.accounts;
     let resultProcessed = [];
     const users = result.users;
-    Object.keys(users).forEach((key) => {
-      let user = users[key];
+    Object.keys(users).forEach((userId) => {
+      let user = {id: userId, ...users[userId]};
       // add the 'apps' property to users
       const userApps = accounts[user.account].apps;
-      user.apps = Object.keys(userApps).map((key) => {
-        return {id: key, ...userApps[key]};
-      });
+      user.apps = Object.keys(userApps).map((appId) => ({id: appId, ...userApps[appId]}));
       resultProcessed.push(user);
     });
     // sort users by name

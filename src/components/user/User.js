@@ -13,8 +13,9 @@ class User extends Component {
   }
 
   render() {
+    const userId = this.props.user.id;
     const userName = this.props.user.name;
-    const userAcc = this.props.user.account;
+    const userAccId = this.props.user.account;
     const userAccStr = `Acc ID: ${this.props.user.account}`;
     const userApps = this.props.user.apps;
     const userHasApps = userApps.length > 0;
@@ -40,7 +41,8 @@ class User extends Component {
         </div>
         { userHasApps ?
           <UserAppsList
-            accountId={userAcc}
+            userId={userId}
+            accountId={userAccId}
             apps={userApps}
             open={this.state.expanded}/> : null
         }
@@ -78,6 +80,7 @@ const UserAppsList = (props) => {
               <li key={index} className="UserAppsList__item">
                 <div>{app.title}</div>
                 <UserAppRating
+                  userId={props.userId}
                   accountId={props.accountId}
                   appId={app.id}
                   rating={app.rating}/>
