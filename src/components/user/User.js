@@ -14,6 +14,7 @@ class User extends Component {
 
   render() {
     const userName = this.props.user.name;
+    const userAcc = this.props.user.account;
     const userAccStr = `Acc ID: ${this.props.user.account}`;
     const userApps = this.props.user.apps;
     const userHasApps = userApps.length > 0;
@@ -39,6 +40,7 @@ class User extends Component {
         </div>
         { userHasApps ?
           <UserAppsList
+            accountId={userAcc}
             apps={userApps}
             open={this.state.expanded}/> : null
         }
@@ -70,11 +72,18 @@ const UserAppsList = (props) => {
     <div className="UserAppsList">
       <div className="UserAppsList__title">Apps</div>
       <ul>
-        { props.apps.map((app, index) => 
-          <li key={index} className="UserAppsList__item">
-            <div>{app.title}</div>
-            <UserAppRating rating={3}/>
-          </li>
+        { Object.keys(props.apps).map((appId, index) => {
+            const app = props.apps[appId];
+            return (
+              <li key={index} className="UserAppsList__item">
+                <div>{app.title}</div>
+                <UserAppRating
+                  accountId={props.accountId}
+                  appId={app.id}
+                  rating={app.rating}/>
+              </li>
+            )
+          }
         )}
       </ul>
     </div>

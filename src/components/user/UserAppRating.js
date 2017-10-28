@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import db from "../../db/firebase";
 import {Star as StarIcon} from '../../images/icons';
 
 class UserAppRating extends Component {
@@ -42,6 +43,9 @@ class UserAppRating extends Component {
     this.setState({
       rating
     });
+
+    // and update the rating in the database
+    console.log(this.props.accountId, this.props.appId)
   }
 
   _changeRatingOnHover(rating) {
