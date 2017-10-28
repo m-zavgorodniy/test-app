@@ -58,6 +58,10 @@
 	display: flex;
 }
 
+.UserAppRating__Star {
+	cursor: pointer;
+}
+
 .UserAppRating__Star--shine {
 	fill: #ffd055;
 }

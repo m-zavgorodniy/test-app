@@ -31,8 +31,10 @@ class UserAppRating extends Component {
     )
   }
 
-  _changeRating(rating) {
-    console.log(rating)
+  _changeRating(newRating) {
+    this.setState({
+      rating: newRating
+    })
   }
 
 }
@@ -43,7 +45,10 @@ const Star = (props) => {
     props.changeRating(props.rating);
   }
 
-  const className = (props.shine === true ? 'UserAppRating__Star--shine' : 'UserAppRating__Star--dim');
+  const className = 'UserAppRating__Star ' +
+    (props.shine === true ?
+      'UserAppRating__Star--shine' :
+      'UserAppRating__Star--dim');
 
   return (
     <div
