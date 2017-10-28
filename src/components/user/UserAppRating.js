@@ -15,10 +15,12 @@ class UserAppRating extends Component {
   render() {
     var stars = [];
     for (let i = 1; i <= this.maxStars; i++) {
+      const starShine = (i <= this.state.rating);
       stars.push(
         <Star
           key={i}
           rating={i}
+          shine={starShine}
           changeRating={this._changeRating.bind(this)}/>);
     }
 
@@ -41,10 +43,13 @@ const Star = (props) => {
     props.changeRating(props.rating);
   }
 
+  const className = (props.shine === true ? 'UserAppRating__Star--shine' : 'UserAppRating__Star--dim');
+
   return (
     <div
       rating={props.rating}
-      onClick={_handleClick}>
+      onClick={_handleClick}
+      className={className}>
       <StarIcon onClick={_handleClick}/>
     </div>
   )

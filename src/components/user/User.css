@@ -57,3 +57,11 @@
 .UserAppRating {
 	display: flex;
 }
+
+.UserAppRating__Star--shine {
+	fill: #ffd055;
+}
+
+.UserAppRating__Star--dim {
+	fill: #d8d8d8;
+}
