@@ -60,7 +60,7 @@ class UserListGrid extends Component {
             <input
               className="UserList__input"
               placeholder="Start typing user name"
-              autocomplete="off"
+              autoComplete="off"
               autoFocus
               onChange={this._handleFilterChange.bind(this)}/>
           </form>

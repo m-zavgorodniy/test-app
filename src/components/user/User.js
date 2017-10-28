@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ArrowUp, ArrowDown} from '../../images/icons';
+import UserAppRating from './UserAppRating';
 import './User.css';
 
 class User extends Component {
@@ -70,8 +71,9 @@ const UserAppsList = (props) => {
       <div className="UserAppsList__title">Apps</div>
       <ul>
         { props.apps.map((app, index) => 
-          <li key={index}>
-            {app.title}
+          <li key={index} className="UserAppsList__item">
+            <div>{app.title}</div>
+            <UserAppRating rating={3}/>
           </li>
         )}
       </ul>

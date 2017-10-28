@@ -47,3 +47,13 @@
 	color: rgba(0, 0, 0, 0.54);
 	font-weight: bold;
 }
+
+.UserAppsList__item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.UserAppRating {
+	display: flex;
+}
