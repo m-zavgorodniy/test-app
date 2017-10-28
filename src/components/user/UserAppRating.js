@@ -8,7 +8,8 @@ class UserAppRating extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: props.rating
+      rating: props.rating,
+      deafultRating: props.rating // stores the rating to roll back on mouse leave
     }
   }
 
@@ -21,25 +22,43 @@ class UserAppRating extends Component {
           key={i}
           rating={i}
           shine={starShine}
-          changeRating={this._changeRating.bind(this)}/>);
+          changeRating={this._changeRating.bind(this)}
+          changeRatingOnHover={this._changeRatingOnHover.bind(this)}
+          onMouseEnter={this._changeRating.bind(this)}/>
+      );
     }
 
     return (
-      <div className="UserAppRating">
+      <div
+        className="UserAppRating"
+        onMouseLeave={this._backToDefault.bind(this)}>
         {stars}
       </div>
     )
   }
 
-  _changeRating(newRating) {
+  _changeRatingOnHover(rating) {
+    this.setState({rating});
+  }
+
+  _changeRating(rating) {
+    this.setState({rating});
+  }
+
+  _backToDefault() {
     this.setState({
-      rating: newRating
-    })
+      rating: this.state.deafultRating
+    });
   }
 
 }
 
 const Star = (props) => {
+  const _handleHover = (event) => {
+    event.stopPropagation();
+    props.changeRatingOnHover(props.rating);
+  }
+
   const _handleClick = (event) => {
     event.stopPropagation();
     props.changeRating(props.rating);
@@ -54,6 +73,7 @@ const Star = (props) => {
     <div
       rating={props.rating}
       onClick={_handleClick}
+      onMouseEnter={_handleHover}
       className={className}>
       <StarIcon onClick={_handleClick}/>
     </div>
