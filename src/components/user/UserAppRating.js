@@ -9,45 +9,50 @@ class UserAppRating extends Component {
     super(props);
     this.state = {
       rating: props.rating,
-      deafultRating: props.rating // stores the rating to roll back on mouse leave
+      ratingOnHover: null
     }
   }
 
   render() {
     var stars = [];
     for (let i = 1; i <= this.maxStars; i++) {
-      const starShine = (i <= this.state.rating);
+      // the rating on hover overrides the real rating
+      const currentRating = (this.state.ratingOnHover !== null ? this.state.ratingOnHover : this.state.rating);
+      const starShine = (i <= currentRating);
       stars.push(
         <Star
           key={i}
           rating={i}
           shine={starShine}
-          changeRating={this._changeRating.bind(this)}
-          changeRatingOnHover={this._changeRatingOnHover.bind(this)}
-          onMouseEnter={this._changeRating.bind(this)}/>
+          setRating={this._setRating.bind(this)}
+          changeRatingOnHover={this._changeRatingOnHover.bind(this)}/>
       );
     }
 
     return (
       <div
         className="UserAppRating"
-        onMouseLeave={this._backToDefault.bind(this)}>
+        onMouseLeave={this._clearRatingOnHover.bind(this)}>
         {stars}
       </div>
     )
   }
 
-  _changeRatingOnHover(rating) {
-    this.setState({rating});
-  }
-
-  _changeRating(rating) {
-    this.setState({rating, deafultRating: rating});
-  }
-
-  _backToDefault() {
+  _setRating(rating) {
     this.setState({
-      rating: this.state.deafultRating
+      rating
+    });
+  }
+
+  _changeRatingOnHover(rating) {
+    this.setState({
+      ratingOnHover: rating
+    });
+  }
+
+  _clearRatingOnHover() {
+    this.setState({
+      ratingOnHover: null
     });
   }
 
@@ -61,7 +66,7 @@ const Star = (props) => {
 
   const _handleClick = (event) => {
     event.stopPropagation();
-    props.changeRating(props.rating);
+    props.setRating(props.rating);
   }
 
   const stateClassSuffix = (props.shine === true ? 'shine' : 'dim');
