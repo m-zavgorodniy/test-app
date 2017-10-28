@@ -42,7 +42,7 @@ class UserAppRating extends Component {
   }
 
   _changeRating(rating) {
-    this.setState({rating});
+    this.setState({rating, deafultRating: rating});
   }
 
   _backToDefault() {
@@ -64,17 +64,14 @@ const Star = (props) => {
     props.changeRating(props.rating);
   }
 
-  const className = 'UserAppRating__Star ' +
-    (props.shine === true ?
-      'UserAppRating__Star--shine' :
-      'UserAppRating__Star--dim');
+  const stateClassSuffix = (props.shine === true ? 'shine' : 'dim');
 
   return (
     <div
       rating={props.rating}
       onClick={_handleClick}
       onMouseEnter={_handleHover}
-      className={className}>
+      className={'UserAppRating__Star UserAppRating__Star--' + stateClassSuffix}>
       <StarIcon onClick={_handleClick}/>
     </div>
   )
