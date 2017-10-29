@@ -61,16 +61,14 @@ class UserAppRating extends Component {
 
   // updates the rating in the database
   _updateRating(rating) {
-    let itemPath = `/accounts/${this.props.accountId}/apps/${this.props.appId}/ratings/`;
-    // a little imitation of user auth within the page's lifespan
+    const ratingsPath = `/accounts/${this.props.accountId}/apps/${this.props.appId}/ratings/`;
+    // a little imitation of user auth within the app's lifespan
     if (this.ratingDbKey === null) {
       // if the user has not voted, push a new rating and keep its key to let them change it
-      const ratingKey = db.ref(itemPath).push({rating}).key;
-      this.ratingDbKey = ratingKey;
+      this.ratingDbKey = db.ref(ratingsPath).push({rating}).key;
     } else {
       // if the user has just voted, let them quickly change their mind
-      itemPath += this.ratingDbKey;
-      db.ref(itemPath).set({rating});
+      db.ref(ratingsPath + this.ratingDbKey).set({rating});
     }
   }
 
