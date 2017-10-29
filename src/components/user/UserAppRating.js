@@ -12,6 +12,7 @@ class UserAppRating extends Component {
       rating: props.rating,
       ratingOnHover: null
     }
+    this.ratingDbKey = null; // if voted, keeps the id from the database so the user is able to change the vote
   }
 
   render() {
@@ -25,15 +26,15 @@ class UserAppRating extends Component {
           key={i}
           rating={i}
           shine={starShine}
-          setRating={this._setRating.bind(this)}
-          changeRatingOnHover={this._changeRatingOnHover.bind(this)}/>
+          setRating={(rating) => this._setRating(rating)}
+          changeRatingOnHover={(rating) => this._changeRatingOnHover(rating)}/>
       );
     }
 
     return (
       <div
         className="UserAppRating"
-        onMouseLeave={this._clearRatingOnHover.bind(this)}>
+        onMouseLeave={() => this._clearRatingOnHover()}>
         {stars}
       </div>
     )
@@ -43,10 +44,7 @@ class UserAppRating extends Component {
     this.setState({
       rating
     });
-
-    // update the rating in the database right now
-    const itemPath = `/accounts/${this.props.accountId}/apps/${this.props.appId}/ratings`;
-    console.log(this.props.userId, itemPath)
+    this._updateRating(rating);
   }
 
   _changeRatingOnHover(rating) {
@@ -59,6 +57,21 @@ class UserAppRating extends Component {
     this.setState({
       ratingOnHover: null
     });
+  }
+
+  // updates the rating in the database
+  _updateRating(rating) {
+    let itemPath = `/accounts/${this.props.accountId}/apps/${this.props.appId}/ratings/`;
+    // a little imitation of user auth within the page's lifespan
+    if (this.ratingDbKey === null) {
+      // if the user has not voted, push a new rating and keep its key to let them change it
+      const ratingKey = db.ref(itemPath).push({rating}).key;
+      this.ratingDbKey = ratingKey;
+    } else {
+      // if the user has just voted, let them quickly change their mind
+      itemPath += this.ratingDbKey;
+      db.ref(itemPath).set({rating});
+    }
   }
 
 }
