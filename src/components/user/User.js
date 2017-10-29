@@ -74,13 +74,19 @@ const UserAppsList = (props) => {
       <ul>
         { Object.keys(props.apps).map((appId, index) => {
             const app = props.apps[appId];
+            // get the average rating
+            let appRatingAvg = 0;
+            if (app.ratings !== undefined) {
+              const ratingsArr = Object.keys(app.ratings).map(ratingId => app.ratings[ratingId]);
+              appRatingAvg = Math.round(ratingsArr.reduce((sum, item) => sum + item.rating, 0) / ratingsArr.length, 10);
+            }
             return (
               <li key={index} className="UserAppsList__item">
                 <div>{app.title}</div>
                 <UserAppRating
                   accountId={props.accountId}
                   appId={app.id}
-                  rating={app.rating}/>
+                  rating={appRatingAvg}/>
               </li>
             )
           }
