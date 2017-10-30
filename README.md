@@ -1,7 +1,7 @@
 ## Beezer test app
 by Maxim Zavgorodniy
 
-Check it live at https://superpuper.github.io/
+Please check it live at https://superpuper.github.io/
 
 or
 
